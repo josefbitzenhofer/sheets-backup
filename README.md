@@ -20,7 +20,7 @@ Make sure that you are **connected** to the **"MarcBusche"-server**!
 (When you are running your machine from outside the UCL network, make sure you are connected via the UCL VPN!)
 
 ### config.txt
-Set up the `config.txt`file:  
+Set up the `config.txt` file:  
 Open the `config.txt` file within the umbrella folder the in your text editor.
 Copy the path of the backup directory into the `config.txt` file and save the change.  
 
@@ -47,8 +47,8 @@ Enter `crontab -e`.
 Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
-Note: Replace 'PATHNAME' with the path where you saved the umbrella folder.
-Note: Replace 'PATHtoPYTHON' with the path to the **venv** Python!
+Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.
+Note: Replace `'PATHtoPYTHON'` with the path to the **venv** Python!
 #### MacOS
 Might look something like `/Users/username/Documents/venv/bin/python3`.  
 #### Linux
