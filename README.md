@@ -32,7 +32,9 @@ Open the `config.txt` file within the umbrella folder the in your text editor.
 ```
    
 > If need be, change the settings:  
-> `'sh_title` refers to the exact title of the spreadsheet. The title has to match exactly and you have to have access to said spreadsheet (either shared or owned).
+> `'sh_title` refers to the exact title of the spreadsheet.  
+> The title has to match exactly. (Do not use underscores (_) or dashes (-)!)  
+> Additionally, you have to have access to said spreadsheet (either shared or owned).  
 > `'parent_directory'` refers to the directory path of the server folder where you want to save the backups.  
 
 > Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
