@@ -21,7 +21,7 @@ Make sure that you are **connected** to the **"MarcBusche"-server**!
 
 ### config.txt
 Set up the `config.txt` file:  
-Open the `config.txt` file within the umbrella folder the in your text editor.
+Open the `config.txt` file within the umbrella folder the in your text editor.  
 Copy the path of the backup directory into the `config.txt` file and save the change.  
 
 #### MacOS  
@@ -42,13 +42,13 @@ See the 'Client credentials' section of this [tutorial](https://gspread-pandas.r
 
 ## Setting up the Cron job
 ### Step 1:
-For setting up the Cron job, open your **Terminal**.
-Enter `crontab -e`.
+For setting up the Cron job, open your **Terminal**.  
+Enter `crontab -e`.  
 Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
-Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.
-Note: Replace `'PATHtoPYTHON'` with the path to the **venv** Python!
+> Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.  
+> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** Python!
 #### MacOS
 Might look something like `/Users/username/Documents/venv/bin/python3`.  
 #### Linux
@@ -59,17 +59,17 @@ Please enter:
 `00 11 * * * PATHtoPYTHON PATHNAME/behaviormetadataBackup/behaviormetadataBackup/main.py`
 
 ### Step 3:
-Then press `esc` on your keyboard.
-Enter `:wq` and press `enter` to leave the editor.
-Note: Sometimes, you will be prompted to allow the edits.
-Note: The first time you have to give Python access to your files and your network.
+Then press `esc` on your keyboard.  
+Enter `:wq` and press `enter` to leave the editor.  
+> Note: Sometimes, you will be prompted to allow the edits. (MacOS)  
+> Note: The first time you have to give Python access to your files and your network. (MacOS)  
 
-This means, that `main.py` will be running **every day** at **11 am**.
+In summary, `main.py` will be running **every day** at **11 am**.
 
 ### Pro tips:
-> You can check if you set up the cronjob correctly by entering `crontab -l` into your terminal.
-It should show the cronjob for the backup which you hopefully just set up.
+> You can check if you set up the cronjob correctly by entering `crontab -l` into your terminal.  
+It should show the cronjob for the backup which you hopefully just set up.  
 
-> You can **delete** the cronjob by repating steps 1 and 2. Just erase the cron job command.
+> You can **delete** the cronjob by repating steps 1 and 2. Just erase the cron job command.  
 
 > If you want to change the time and date of the cronjob, see this [tutorial](https://medium.com/@justin_ng/how-to-run-your-script-on-a-schedule-using-crontab-on-macos-a-step-by-step-guide-a7ba539acf76) for guidance.
