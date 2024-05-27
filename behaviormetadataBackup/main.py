@@ -26,8 +26,13 @@ def get_timestamp():
 
 ##################################################################
 # Creating a folder for each day
+def get_parent_directory():
+    config_file = open("config.txt", "r")                                       # JB: opens the config.txt file
+    parent_directory = config_file.read()                                       # JB: sets the parent directory to the path in the config.txt
+    return parent_directory
+
 def create_directory():
-    parent_directory = "/Volumes/MarcBusche/Josef/behaviormetadataBackup/data"  # JB: This is the parent directory of the backup
+    parent_directory = get_parent_directory()                                   # JB: This is the parent directory of the backup
     new_directory = get_timestamp()                                             # JB: This sets the name of the new folder to the timestamp                                                       # JB: Globalling the directory path
     directory_path = os.path.join(parent_directory, new_directory)
     os.makedirs(directory_path)

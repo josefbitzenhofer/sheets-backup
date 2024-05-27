@@ -4,6 +4,7 @@
 You need to set up a few things:
 - **Python**
 - **Server connection**
+- **config.txt**
 - **Google API connection**
 
 ### Python
@@ -18,6 +19,24 @@ Create a venv, activate it and install the modules into it.
 Make sure that you are **connected** to the **"MarcBusche"-server**!
 (When you are running your machine from outside the UCL network, make sure you are connected via the UCL VPN!)
 
+### config.txt
+Set up the `config.txt`file:  
+Open the `config.txt` file within the umbrella folder the in your text editor.
+Copy the path of the backup directory into the `config.txt` file and save the change.  
+
+#### MacOS  
+It should look something like this:  
+`/Volumes/MarcBusche/Josef/behaviormetadataBackup/data`  
+
+#### Linux
+It should look something like this:  
+`/mnt/MarcBusche/Josef/behaviormetadataBackup/data`  
+Or this:  
+`/media/MarcBusche/Josef/behaviormetadataBackup/data`
+  
+
+> Note: Make sure the file consists of **only one line**! Otherwise Python will prompt an error.
+
 ### Google API connection
 See the 'Client credentials' section of this [tutorial](https://gspread-pandas.readthedocs.io/en/latest/getting_started.html#installation-usage) for how to establish the connection.
 
@@ -29,7 +48,13 @@ Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
 Note: Replace 'PATHNAME' with the path where you saved the umbrella folder.
-Note: Replace 'PATHtoPYTHON' with the path to the **venv** Python! (Might look something like `/Users/username/Documents/venv/bin/python3`)  
+Note: Replace 'PATHtoPYTHON' with the path to the **venv** Python!
+#### MacOS
+Might look something like `/Users/username/Documents/venv/bin/python3`.  
+#### Linux
+Might look something like `/home/username/Documents/venv/bin/python3`.  
+
+  
 Please enter:  
 `00 11 * * * PATHtoPYTHON PATHNAME/behaviormetadataBackup/behaviormetadataBackup/main.py`
 
