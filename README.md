@@ -24,23 +24,33 @@ Make sure that you are **connected** to the **"MarcBusche"-server**!
 ### config.txt
 Set up the `config.txt` file:  
 Open the `config.txt` file within the umbrella folder the in your text editor.  
-Copy the path of the backup directory into the `config.txt` file and save the change.  
+> The file's content looks like this:
+```
+    [Configuration]
+    sh_title: Behaviour metadata
+    parent_directory: /Volumes/MarcBusche/Josef/behaviormetadataBackup/data
+```
+   
+> If need be, change the settings:  
+> `'sh_title` refers to the exact title of the spreadsheet. The title has to match exactly and you have to have access to said spreadsheet (either shared or owned).
+> `'parent_directory'` refers to the directory path of the server folder where you want to save the backups.  
+
+> Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
+> Also, do not use quotes (" ") or single quotes (' ') here.
 
 #### MacOS  
-It should look something like this:  
+The directory path should look something like this:  
 `/Volumes/MarcBusche/Josef/behaviormetadataBackup/data`  
 
 #### Linux
-It should look something like this:  
+The directory path should look something like this:  
 `/mnt/MarcBusche/Josef/behaviormetadataBackup/data`  
 Or this:  
 `/media/MarcBusche/Josef/behaviormetadataBackup/data`
-  
-
-> Note: Make sure the file consists of **only one line**! Otherwise Python will prompt an error.
 
 ### Google API connection
-See the 'Client credentials' section of this [tutorial](https://gspread-pandas.readthedocs.io/en/latest/getting_started.html#installation-usage) for how to establish the connection.
+See the 'Client credentials' section of this [tutorial](https://gspread-pandas.readthedocs.io/en/latest/getting_started.html#installation-usage) for how to establish the connection.  
+> Note: Use the **same** Google account which has access to the spreasheet!
 
 ## Setting up the Cron job
 ### Step 1:

@@ -1,1 +1,3 @@
-/Volumes/MarcBusche/Josef/behaviormetadataBackup/data
+[Configuration]
+sh_title: Behaviour metadata
+parent_directory: /Volumes/MarcBusche/Josef/behaviormetadataBackup/data
