@@ -12,7 +12,7 @@ You need to set up a few things:
 
 See 'requirements.txt'.
 
-Install them into a venv and activate it.
+Create a venv, activate it and install the modules into it.
 
 ### Server connection
 Make sure that you are **connected** to the **"MarcBusche"-server**!
@@ -29,7 +29,7 @@ Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
 Note: Replace 'PATHNAME' with the path where you saved the umbrella folder.
-Note: Replace 'PATHtoPYTHON' with the path to the **venv** Python! (Might look something like `/Users/username/Documents/behaviormetadataBackup/.venv/bin/python3`)  
+Note: Replace 'PATHtoPYTHON' with the path to the **venv** Python! (Might look something like `/Users/username/Documents/venv/bin/python3`)  
 Please enter:  
 `00 11 * * * PATHtoPYTHON PATHNAME/behaviormetadataBackup/behaviormetadataBackup/main.py`
 
