@@ -8,9 +8,11 @@ You need to set up a few things:
 
 ### Python
 - gspread
--  pandas  
+- pandas 
 
 See 'requirements.txt'.
+
+Install them into a venv and activate it.
 
 ### Server connection
 Make sure that you are **connected** to the **"MarcBusche"-server**!
