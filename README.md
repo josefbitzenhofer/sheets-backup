@@ -8,8 +8,9 @@ You need to set up a few things:
 
 ### Python
 - gspread
--  pandas
--> See 'requirements.txt'
+-  pandas  
+
+See 'requirements.txt'.
 
 ### Server connection
 Make sure that you are **connected** to the **"MarcBusche"-server**!

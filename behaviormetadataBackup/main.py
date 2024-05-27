@@ -43,20 +43,8 @@ directory_path = create_directory()
 ##################################################################
 # Setting our worksheets
 worksheet_list = sh.worksheets()                                                        # Getting a list of worksheets we can iterate over
-# worksheet_list_number = len(worksheet_list)
-# worksheet_counter = 0
-# while worksheet_counter < worksheet_list_number:
-#     worksheet = sh.get_worksheet(worksheet_counter)                                     # Select the worksheet by index
-#     worksheet_df = pd.DataFrame(worksheet.get_all_records())                            # Getting all data of the worksheet into a Pandas dataframe
-#     # Setting the filename
-#     file_name = worksheet.title + ".csv"
-#     file_path = os.path.join(directory_path, file_name)
-#     # Dumping the Pandas dataframe into a .csv file
-#     worksheet_df.to_csv(file_path)
-#     worksheet_counter += 1
 
 for worksheet in worksheet_list:
-    # worksheet = sh.get_worksheet(worksheet_counter)                                     # Select the worksheet by index
     worksheet_df = pd.DataFrame(worksheet.get_all_records())                            # Getting all data of the worksheet into a Pandas dataframe
     # Setting the filename
     file_name = worksheet.title + ".csv"
