@@ -13,7 +13,9 @@ You need to set up a few things:
 
 See 'requirements.txt'.
 
-Create a venv, activate it and install the modules into it.
+You can either:  
+1) Use the `bmB_venv` venv provided.  
+2) Create a venv, activate it and install the modules into it.
 
 ### Server connection
 Make sure that you are **connected** to the **"MarcBusche"-server**!
@@ -48,7 +50,7 @@ Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
 > Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.  
-> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** Python!
+> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`! This can be the `python3` in the`bmB_venv` venv, if you decided to use this one.
 #### MacOS
 Might look something like `/Users/username/Documents/venv/bin/python3`.  
 #### Linux
