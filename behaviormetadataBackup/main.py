@@ -10,13 +10,14 @@ import configparser
 # Getting the variables from the config.txt file
 config = configparser.ConfigParser()
 config.read("config.txt")
-sh_title = config.get('Configuration', 'sh_title')
-parent_directory = config.get('Configuration', 'parent_directory')
+sh_title = config.get("Configuration", "sh_title")
+parent_directory = config.get("Configuration", "parent_directory")
 
 ##################################################################
 # Opening the Google Spreadsheet
-gc = gspread.oauth()                                                            # Authenticating with the created credentials
-sh = gc.open(sh_title)                                                          # Opening the Google Sheet
+gc = gspread.oauth()  # Authenticating with the created credentials
+sh = gc.open(sh_title)  # Opening the Google Sheet
+
 
 ##################################################################
 # Getting the timestamp
@@ -32,11 +33,14 @@ def get_timestamp():
     timestamp = today + "_" + time  # JB: 'YYYY-MM-DD_HH-MM-SS'
     return timestamp
 
+
 ##################################################################
 # Creating a folder for each day
 def create_directory():
     # parent_directory = get_parent_directory()                                   # JB: This is the parent directory of the backup
-    new_directory = get_timestamp()                                             # JB: This sets the name of the new folder to the timestamp                                                       # JB: Globalling the directory path
+    new_directory = (
+        get_timestamp()
+    )  # JB: This sets the name of the new folder to the timestamp
     directory_path = os.path.join(parent_directory, new_directory)
     os.makedirs(directory_path)
     print("NOTE: Created new directory @", directory_path)
@@ -50,10 +54,12 @@ directory_path = create_directory()
 
 ##################################################################
 # Setting our worksheets
-worksheet_list = sh.worksheets()                                                        # Getting a list of worksheets we can iterate over
+worksheet_list = sh.worksheets()  # Getting a list of worksheets we can iterate over
 
 for worksheet in worksheet_list:
-    worksheet_df = pd.DataFrame(worksheet.get_all_records())                            # Getting all data of the worksheet into a Pandas dataframe
+    worksheet_df = pd.DataFrame(
+        worksheet.get_all_records()
+    )  # Getting all data of the worksheet into a Pandas dataframe
     # Setting the filename
     file_name = worksheet.title + ".csv"
     file_path = os.path.join(directory_path, file_name)
