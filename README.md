@@ -28,7 +28,7 @@ Open the `config.txt` file within the umbrella folder in your text editor.
 ```
     [Configuration]
     sh_title: Behaviour metadata
-    parent_directory: /Volumes/MarcBusche/Josef/behaviormetadataBackup/data
+    parent_directory: /Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup
 ```
    
 > If need be, change the settings:  
@@ -42,13 +42,13 @@ Open the `config.txt` file within the umbrella folder in your text editor.
 
 #### MacOS  
 The directory path should look something like this:  
-`/Volumes/MarcBusche/Josef/behaviormetadataBackup/data`  
+`/Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup`  
 
 #### Linux
 The directory path should look something like this:  
-`/mnt/MarcBusche/Josef/behaviormetadataBackup/data`  
+`/mnt/MarcBusche/Josef/backup/data/behaviormetadataBackup`  
 Or this:  
-`/media/MarcBusche/Josef/behaviormetadataBackup/data`
+`/media/MarcBusche/Josef/backup/data/behaviormetadataBackup`
 
 ### Google API connection
 See the 'Client credentials' section of this [tutorial](https://gspread-pandas.readthedocs.io/en/latest/getting_started.html#installation-usage) for how to establish the connection.  
