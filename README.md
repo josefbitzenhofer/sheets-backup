@@ -23,7 +23,7 @@ Make sure that you are **connected** to the **"MarcBusche"-server**!
 
 ### config.txt
 Set up the `config.txt` file:  
-Open the `config.txt` file within the umbrella folder the in your text editor.  
+Open the `config.txt` file within the umbrella folder in your text editor.  
 > The file's content looks like this:
 ```
     [Configuration]
@@ -33,8 +33,8 @@ Open the `config.txt` file within the umbrella folder the in your text editor.
    
 > If need be, change the settings:  
 > `'sh_title` refers to the exact title of the spreadsheet.  
-> The title has to match exactly. (Do not use underscores (_) or dashes (-)!)  
-> Additionally, you have to have access to said spreadsheet (either shared or owned).  
+> The title has to match exactly. (You should leave blank spaces as they are (do not insert dashes or underscores!))  
+> Additionally, you have to have access to said Google spreadsheet (either shared or owned).  
 > `'parent_directory'` refers to the directory path of the server folder where you want to save the backups.  
 
 > Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
@@ -57,7 +57,7 @@ See the 'Client credentials' section of this [tutorial](https://gspread-pandas.r
 ## Setting up the Cron job
 ### Step 1:
 For setting up the Cron job, open your **Terminal**.  
-Enter `crontab -e`.  
+Enter `crontab -e`.  Press `enter` on your keyboard.
 Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
@@ -69,21 +69,21 @@ Might look something like `/Users/username/Documents/venv/bin/python3`.
 Might look something like `/home/username/Documents/venv/bin/python3`.  
 
   
-Please enter:  
+Please enter or copy and paste:  
 `00 11 * * * PATHtoPYTHON PATHNAME/behaviormetadataBackup/behaviormetadataBackup/main.py`
 
 ### Step 3:
 Then press `esc` on your keyboard.  
-Enter `:wq` and press `enter` to leave the editor.  
+Enter `:wq` and press `enter` on your keyboard to leave the editor.  
 > Note: Sometimes, you will be prompted to allow the edits. (MacOS)  
-> Note: The first time you have to give Python access to your files and your network. (MacOS)  
+> Note: The first timem, you have to give Python access to your files and your network. (MacOS)  
 
 In summary, `main.py` will be running **every day** at **11 am**.
 
 ### Pro tips:
-> You can check if you set up the cronjob correctly by entering `crontab -l` into your terminal.  
-It should show the cronjob for the backup which you hopefully just set up.  
+> You can check if you set up the cronjob correctly by entering `crontab -l` into your terminal and pressing `enter` on your keyboard.  
+It should show the cronjob for the backup which you just set up.  
 
-> You can **delete** the cronjob by repating steps 1 and 2. Just erase the cron job command.  
+> You can **delete** the cronjob by repeating steps 1 and 2. Just erase the cron job command.  
 
 > If you want to change the time and date of the cronjob, see this [tutorial](https://medium.com/@justin_ng/how-to-run-your-script-on-a-schedule-using-crontab-on-macos-a-step-by-step-guide-a7ba539acf76) for guidance.
