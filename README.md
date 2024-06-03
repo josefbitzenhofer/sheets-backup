@@ -4,12 +4,13 @@
 You need to set up a few things:
 - **Python**
 - **Server connection**
-- **config.txt**
+- **config.yaml**
 - **Google API connection**
 
 ### Python
 - gspread
-- pandas 
+- pandas
+- pyyaml 
 
 See 'requirements.txt'.
 
@@ -22,20 +23,32 @@ Make sure that you are **connected** to the **"MarcBusche"-server**!
 (When you are running your machine from outside the UCL network, make sure you are connected via the UCL VPN!)
 
 ### config.txt
-Set up the `config.txt` file:  
-Open the `config.txt` file within the umbrella folder in your text editor.  
+Set up the `config.yaml` file:  
+Open the `config.yaml` file within the umbrella folder in your text editor.  
 > The file's content looks like this:
 ```
-    [Configuration]
+    ---
     sh_title: Behaviour metadata
     parent_directory: /Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup
+    ---
+    sh_title: mouse metadata
+    parent_directory: /Volumes/MarcBusche/Josef/backup/data/mousemetadataBackup
 ```
    
-> If need be, change the settings:  
+> If need be, change the settings.
+> You can easily **add new spreadsheets** to the `config.yaml`file!  
+> The spreadsheet data has to be formatted as follows:  
+```
+    ---
+    sh_title: YOUR-sh_title
+    parent_directory: YOUR-parent_directory
+```  
+> **Important note**: You need the dashes (`---`) to start a new section for another spreadsheet!  
 > `'sh_title` refers to the exact title of the spreadsheet.  
 > The title has to match exactly. (You should leave blank spaces as they are (do not insert dashes or underscores!))  
 > Additionally, you have to have access to said Google spreadsheet (either shared or owned).  
 > `'parent_directory'` refers to the directory path of the server folder where you want to save the backups.  
+> See the section below on how to adjust the directory path depending on the machine you are using.
 
 > Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
 > Also, do not use quotes (" ") or single quotes (' ') here.
@@ -64,9 +77,9 @@ Press `I` on your keyboard to enter the insert mode.
 > Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.  
 > Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`! This can be the `python3` in the`bmB_venv` venv, if you decided to use this one.
 #### MacOS
-Might look something like `/Users/username/Documents/venv/bin/python3`.  
+Might look something like `/Users/username/Documents/bmB_venv/bin/python3`.  
 #### Linux
-Might look something like `/home/username/Documents/venv/bin/python3`.  
+Might look something like `/home/username/Documents/bmB_venv/bin/python3`.  
 
   
 Please enter or copy and paste:  
