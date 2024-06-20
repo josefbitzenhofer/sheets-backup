@@ -58,17 +58,21 @@ def list_worksheets(spreadsheet_id: str):
 
     for sheet in sheets:
         sheet_name = sheet["properties"]["title"]
-        # If the sheet name contains numbers, it must be enclosed in single quotes
-        if any(char.isdigit() for char in sheet_name):
+        # If the sheet name contains numbers, it must be enclosed in single quotes # JB: We have to deal with blank spaces as well.
+        if any(char.isdigit() for char in sheet_name) or any(
+            char.isspace() for char in sheet_name
+        ):
             sheet_name = f"'{sheet_name}'"
         worksheets.append(sheet_name)
 
     return worksheets
 
+
 def build_gsheet(spreadsheet_id: str, sheet_name: str):
     # JB: It takes the sheet_name and returns the gsheet object.
     service = credentials(spreadsheet_id)
     sheet = service.spreadsheets()
+
     return sheet.values().get(spreadsheetId=spreadsheet_id, range=sheet_name).execute()
 
 
@@ -76,11 +80,13 @@ def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int):
     # JB: It takes the gsheet from the build_gsheet subroutine and returns a pandas dataframe.
     gsheet = build_gsheet(spreadsheet_id, sheet_name)
     values = gsheet.get("values", [])
-    
-    if values:
-        num_columns = max(len(row) for row in  values)
 
-        header_data = values[header_row-1]      # JB: Accounting for the fact, that python starts counting at 0.
+    try:
+        num_columns = max(len(row) for row in values)
+
+        header_data = values[
+            header_row - 1
+        ]  # JB: Accounting for the fact, that python starts counting at 0.
         # JB: Trying to prevent errors with empty header data.
         for i in range(len(header_data)):
             if not header_data[i]:
@@ -88,7 +94,7 @@ def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int):
         # Also ensuring the header row is as long as the longest row in the entire sheet
         column_names = header_data
         if len(column_names) < num_columns:
-                column_names.extend([""] * (num_columns - len(column_names)))
+            column_names.extend([""] * (num_columns - len(column_names)))
 
         # JB: Setting up the actual cell data, assuming, it starts one row beneath the header row
         cell_data = values[header_row:]
@@ -99,8 +105,9 @@ def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int):
                 row.extend([""] * (num_columns - len(row)))
 
         # JB: Now creating our Pandas dataframe
-        gsheetdf = pd.DataFrame(cell_data, columns = column_names)
+        gsheetdf = pd.DataFrame(cell_data, columns=column_names)
 
         return gsheetdf
-    else:
-        print("ERROR: No data found")
+
+    except:
+        print(f"ERROR: ExceptionError - No data found for worksheet '{sheet_name}'.")

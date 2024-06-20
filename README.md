@@ -31,14 +31,22 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 ```
     ---
     spreadsheet_title: Behaviour metadata
+    active: True
     spreadsheet_id: 1fMnVXrDeaWTkX-TT21F4mFuAlaXIe6uVteEjv8mH0Q4
     parent_directory: /Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup
     header_row: 1
-    ---
+    all_worksheets: True
+    worksheets:
+    -
+---
     spreadsheet_title: mouse metadata
+    active: False
     spreadsheet_id: 1QVkoP9g2XUB8OBu4Hs4d2h3ebUQx2sAeQ4wMnlLhbv8
     parent_directory: /Volumes/MarcBusche/Josef/backup/data/mousemetadataBackup
     header_row: 1
+    all_worksheets: True
+    worksheets:
+    - surgery_metadata
 ```
    
 > If need be, change the settings.
@@ -46,15 +54,23 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > The spreadsheet data has to be formatted as follows:  
 ```
     ---
-    spreadsheet_title: YOUR-spreadsheet_title
-    spreadsheet_id: YOUR-spreadsheet_id
-    parent_directory: YOUR-parent_directory
-    header_row: YOUR-header_row
+    spreadsheet_title:           # YOUR-spreadsheet_title
+    active:                      # either 'True' or 'False'
+    spreadsheet_id:              # YOUR-spreadsheet_id
+    parent_directory:            # YOUR-parent_directory
+    header_row:                  # YOUR-header_row
+    all_worksheets:              # either 'True' or 'False'
+    worksheets:
+        - 
 ```  
 > **Important note**: You need the dashes (`---`) to start a new section for another spreadsheet!  
 
 > `'spreadsheet_title` refers to the title of the spreadsheet.  
-> This key: value pair is not needed by the code. It is merely to help you keep track of your spreadsheets.  
+> This will be used to help you keep track of your spreadsheets.  
+
+> `active` refers to the status of the spreadsheet.  
+> `True` means that a backup will be created.  
+> `False` means that no backup will be created.   
    
 >`'spreadsheet_id` refers to the ID of the spreadsheet. This has to be **accurate**!  
 > You will find your spreadsheet's ID here: `https://docs.google.com/spreadsheets/d/SPREADSHEET_ID`  
@@ -64,7 +80,17 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > See the section below on how to adjust the directory path depending on the machine you are using. 
     
 > `'header_row'` is the number of the row which contains the headers of the columns.   
-> This must be an **integer**, e.g. `1`. This information tells our code to look for the headers in the said row of the sheet.
+> This must be an **integer**, e.g. `1`. This information tells our code to look for the headers in the said row of the sheet.   
+
+> Through `all_worksheets`, you can set whether you want all worksheets within your spreadsheet to be saved.   
+> Set this to `True` if all worksheets shall be saved.  
+> If you set this to `False`, you have to specify the worksheets to be saved in the list below.  
+
+> Said list is `worksheets`. Every worksheet to be saved needs to be set here.  
+> You can leave the `worksheets` list empty, if you set `all_worksheets` to `True`.   
+> Begin every entry with a dash (`-`).   
+> Do not use quotes (`""`) or single quotes (`''`) here!  
+> Do not replace any blank spaces (`  `)!   
 
 > Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
 > Also, do not use quotes (" ") or single quotes (' ') here.
