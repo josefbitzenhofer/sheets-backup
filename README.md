@@ -38,7 +38,7 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
     all_worksheets: True
     worksheets:
         -
----
+    ---
     spreadsheet_title: mouse metadata
     active: False
     spreadsheet_id: 1QVkoP9g2XUB8OBu4Hs4d2h3ebUQx2sAeQ4wMnlLhbv8
