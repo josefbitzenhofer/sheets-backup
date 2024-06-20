@@ -37,7 +37,7 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
     header_row: 1
     all_worksheets: True
     worksheets:
-    -
+        -
 ---
     spreadsheet_title: mouse metadata
     active: False
@@ -46,7 +46,7 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
     header_row: 1
     all_worksheets: True
     worksheets:
-    - surgery_metadata
+        - surgery_metadata
 ```
    
 > If need be, change the settings.
