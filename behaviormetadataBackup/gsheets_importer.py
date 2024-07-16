@@ -91,7 +91,7 @@ def build_gsheet(spreadsheet_id: str, sheet_name: str) -> dict:
 def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int) -> pd.DataFrame:
     """
     Return dataframe with worksheet data.
-    Arg:
+    Args:
         spreadsheet_id (str):           Spreadsheet id
         sheet_name (str):               Name of worksheet
         header_row (int):               Row number of the row with the headers in the worksheets
