@@ -3,13 +3,11 @@ from datetime import date
 from datetime import datetime
 import os
 import yaml
-from gsheets_importer import (
-    gsheet2df,
-    list_worksheets
-)
+from gsheets_importer import gsheet2df, list_worksheets
+
 
 def get_timestamp() -> str:
-    """"Return timestamp"""
+    """ "Return timestamp"""
     # Get the current date
     today = date.today()
     today = today.strftime("%Y-%m-%d")
@@ -21,6 +19,7 @@ def get_timestamp() -> str:
     timestamp = today + "_" + time  # 'YYYY-MM-DD_HH-MM-SS'
     return timestamp
 
+
 def create_todays_directory(parent_directory: str) -> str:
     """
     Return today's directory
@@ -29,14 +28,13 @@ def create_todays_directory(parent_directory: str) -> str:
     Returns:
         str: Today's directory path
     """
-    new_directory = (
-        get_timestamp()
-    ) 
+    new_directory = get_timestamp()
     # This sets the name of the new folder to the timestamp
     directory_path = os.path.join(parent_directory, new_directory)
     os.makedirs(directory_path)
     print(f"NOTE: Created new directory @ '{directory_path}'.")
     return directory_path
+
 
 def create_csv(
     spreadsheet_id: str,
@@ -79,12 +77,16 @@ def create_csv(
         try:
             sheet_df = gsheet2df(spreadsheet_id, sheet_name, header_row)
         except AttributeError as e:
-            print(f"ERROR: ExceptionError: The worksheet '{sheet_name}' appears to be empty. Exception: '{e}'.")
+            print(
+                f"ERROR: ExceptionError: The worksheet '{sheet_name}' appears to be empty. Exception: '{e}'."
+            )
+            break
         file_name = sheet_name + ".csv"
         file_path = os.path.join(directory_path, file_name)
         sheet_df.to_csv(file_path)
-        
+
     print(f"NOTE: Backup of '{spreadsheet_title}' @ '{directory_path}' successful.")
+
 
 def main():
     """
@@ -107,7 +109,9 @@ def main():
                     spreadsheet_id = spreadsheet["spreadsheet_id"]
                     parent_directory = spreadsheet["parent_directory"]
                     if not os.path.isdir(parent_directory):
-                        raise FileNotFoundError(f"ERROR: The directory '{parent_directory}' does not exist.")
+                        raise FileNotFoundError(
+                            f"ERROR: The directory '{parent_directory}' does not exist."
+                        )
                     header_row = spreadsheet["header_row"]
                     all_worksheets = spreadsheet["all_worksheets"]
                     if not all_worksheets:
@@ -135,7 +139,10 @@ def main():
                         f"NOTE: No backup for '{spreadsheet_title}'. `active` is set to `{active}`."
                     )
             except Exception as e:
-                raise ValueError(f"ERROR: ExceptionError: You did not correctly set up your 'config.yaml' file for '{spreadsheet_title}.'") from e
+                raise ValueError(
+                    f"ERROR: ExceptionError: You did not correctly set up your 'config.yaml' file for '{spreadsheet_title}.'"
+                ) from e
+
 
 if __name__ == "__main__":
     main()
