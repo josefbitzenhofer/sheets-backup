@@ -1,0 +1,3 @@
+{
+    "mypy-type-checker.args": ["--disallow-untyped-defs", "--check-untyped-defs", "--ignore-missing-imports"],
+}
