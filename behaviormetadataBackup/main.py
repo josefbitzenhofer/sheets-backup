@@ -8,8 +8,6 @@ from gsheets_importer import (
     list_worksheets
 )
 
-
-##################################################################
 def get_timestamp() -> str:
     """"Return timestamp"""
     # Get the current date
@@ -23,8 +21,6 @@ def get_timestamp() -> str:
     timestamp = today + "_" + time  # 'YYYY-MM-DD_HH-MM-SS'
     return timestamp
 
-
-##################################################################
 def create_todays_directory(parent_directory: str) -> str:
     """
     Return today's directory
@@ -42,8 +38,6 @@ def create_todays_directory(parent_directory: str) -> str:
     print(f"NOTE: Created new directory @ '{directory_path}'.")
     return directory_path
 
-
-#################################################################
 def create_csv(
     spreadsheet_id: str,
     spreadsheet_title: str,
@@ -64,7 +58,7 @@ def create_csv(
     Returns:
         None
     Raises:
-        ExceptionError:                 If worksheet could not be saved aka turned into a .csv file
+        AttributeError:                 If gsheet2df returns 'None'
     """
     directory_path = create_todays_directory(parent_directory)
     # This checks if the user wants all worksheets within the spreadsheet to be saved. Else, it takes the worksheets the user specified.
@@ -82,15 +76,14 @@ def create_csv(
                 worksheets.append(worksheet_name)
     for worksheet in worksheets:
         sheet_name = worksheet
-        sheet_df = gsheet2df(spreadsheet_id, sheet_name, header_row)
+        try:
+            sheet_df = gsheet2df(spreadsheet_id, sheet_name, header_row)
+        except AttributeError as e:
+            print(f"ERROR: ExceptionError: The worksheet '{sheet_name}' appears to be empty. Exception: '{e}'.")
         file_name = sheet_name + ".csv"
         file_path = os.path.join(directory_path, file_name)
-        try:
-            sheet_df.to_csv(file_path)
-        except Exception as e:
-            print(
-                f"ERROR: ExceptionError - Worksheet '{sheet_name}' could not be saved. Exception: '{e}'."
-            )
+        sheet_df.to_csv(file_path)
+        
     print(f"NOTE: Backup of '{spreadsheet_title}' @ '{directory_path}' successful.")
 
 def main():
@@ -100,6 +93,7 @@ def main():
     Returns:
         None
     Raises:
+        FileNotFoundError:              If the parent directory does not exists
         ValueError:                     If a value within the 'config.yaml' file has not properly been set up
     """
     with open("config.yaml", "r") as file:
@@ -112,6 +106,8 @@ def main():
                     print(f"NOTE: Starting backup for '{spreadsheet_title}'.")
                     spreadsheet_id = spreadsheet["spreadsheet_id"]
                     parent_directory = spreadsheet["parent_directory"]
+                    if not os.path.isdir(parent_directory):
+                        raise FileNotFoundError(f"ERROR: The directory '{parent_directory}' does not exist.")
                     header_row = spreadsheet["header_row"]
                     all_worksheets = spreadsheet["all_worksheets"]
                     if not all_worksheets:
@@ -141,7 +137,6 @@ def main():
             except Exception as e:
                 raise ValueError(f"ERROR: ExceptionError: You did not correctly set up your 'config.yaml' file for '{spreadsheet_title}.'") from e
 
-##################################################################
 if __name__ == "__main__":
     main()
     print("NOTE: Graceful exit.")

@@ -98,27 +98,20 @@ def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int) -> pd.DataF
     Return:
         pd.DataFrame:                   Dataframe with worksheet data
     Raises:
-        ExceptionError:                 If no values were found in the worksheet.
         ExceptionError:                 If no values were found in the supposed header row.
     """
     gsheet = build_gsheet(spreadsheet_id, sheet_name)
-    values = None
-    try:
-        values = gsheet.get("values", [])
-    except Exception as e:
-        print(f"ERROR: ExceptionError: No values found for sheet '{sheet_name}'. Exception: '{e}'.")
+    values = gsheet.get("values", [])
+
+    if not values:
+        raise AttributeError(f"No values for worksheet '{sheet_name}.'")
 
     num_columns = max(len(row) for row in values)
 
-    header_data = None
-    try:
-        header_data = values[
-            header_row - 1
-        ]
-        # Accounting for the fact, that python starts counting at 0.
-        # Trying to prevent errors with empty header data.
-    except Exception as e:
-        print(f"ERROR: ExceptionError: There went something wrong getting the headers for sheet '{sheet_name}'. Exception: '{e}'.")
+    header_data = values[
+        header_row - 1
+    ]
+    # Accounting for the fact, that python starts counting at 0.
     
     for i in range(len(header_data)):
         if not header_data[i]:
