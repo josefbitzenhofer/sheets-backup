@@ -127,15 +127,13 @@ Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
 > Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.  
-> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`! This can be the `python3` in the`bmB_venv` venv, if you decided to use this one.
-#### MacOS
-Might look something like `/Users/username/Documents/bmB_venv/bin/python3`.  
-#### Linux
-Might look something like `/home/username/Documents/bmB_venv/bin/python3`.  
+> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`! This can be the `python3` in the`bmB_venv` venv, if you decided to use this one.   
+Might look something like `/bmB_venv/bin/python3`.  
+> Note: Replace `PATHtoCRONLOG` with the path where you want the `cron.log` logs saved to, e.g. into the umbrella folder.
 
   
 Please enter or copy and paste:  
-`00 11 * * * PATHtoPYTHON PATHNAME/behaviormetadataBackup/behaviormetadataBackup/main.py`
+`00 11 * * * cd PATHNAME && PATHtoPYTHON behaviormetadataBackup/main.py >> PATHtoCRONLOG 2>&1`
 
 ### Step 3:
 Then press `esc` on your keyboard.  

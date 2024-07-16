@@ -2,25 +2,24 @@ import pickle
 import os.path
 
 
-from googleapiclient.discovery import build
+from googleapiclient.discovery import (
+    build,
+    Resource
+)
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import pandas as pd
 
 from pathlib import Path
 
-# JB: Sets "HERE" to the parent of this file's path
 HERE = Path(__file__).parent
 
-# JB: Smart. Sets the path to the parent of the parent of the file.
 CRED_PATH = HERE.parent / "credentials.json"
 TOKEN_PATH = HERE.parent / "token.pickle"
 
 
-def credentials(spreadsheet_id: str):
-    # JB:
-    # It takes the spreadsheet_id, uses the credentials or prompts the credeting process, then returns the 'service'.
-
+def create_service() -> Resource:
+    """Use the credentials/prompts the credeting process, return Google API service object."""
     creds = None
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -49,9 +48,15 @@ def credentials(spreadsheet_id: str):
     return service
 
 
-def list_worksheets(spreadsheet_id: str):
-    # JB: It takes a spreadsheet_id and returns a list of worksheets we can iterate over to create .csv files.
-    service = credentials(spreadsheet_id)
+def list_worksheets(spreadsheet_id: str) -> list[str]:
+    """
+    Return list of worksheets in the spreadsheet.
+    Args:
+        spreadsheet_id (str):           Spreadsheet id
+    Return:
+        list of strings:                List of worksheets
+    """
+    service = create_service()
     spreadsheet = service.spreadsheets().get(spreadsheetId=spreadsheet_id).execute()
     sheets = spreadsheet.get("sheets", [])
     worksheets = []
@@ -68,46 +73,70 @@ def list_worksheets(spreadsheet_id: str):
     return worksheets
 
 
-def build_gsheet(spreadsheet_id: str, sheet_name: str):
-    # JB: It takes the sheet_name and returns the gsheet object.
-    service = credentials(spreadsheet_id)
+def build_gsheet(spreadsheet_id: str, sheet_name: str) -> dict:
+    """
+    Return gsheet object.
+    Args:
+        spreadsheet_id (str):           Spreadsheet id
+        sheet_name (str):               Name of worksheet
+    Return:
+        dict:                           Gsheet object
+    """
+    service = create_service()
     sheet = service.spreadsheets()
 
     return sheet.values().get(spreadsheetId=spreadsheet_id, range=sheet_name).execute()
 
 
-def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int):
-    # JB: It takes the gsheet from the build_gsheet subroutine and returns a pandas dataframe.
+def gsheet2df(spreadsheet_id: str, sheet_name: str, header_row: int) -> pd.DataFrame:
+    """
+    Return dataframe with worksheet data.
+    Arg:
+        spreadsheet_id (str):           Spreadsheet id
+        sheet_name (str):               Name of worksheet
+        header_row (int):               Row number of the row with the headers in the worksheets
+    Return:
+        pd.DataFrame:                   Dataframe with worksheet data
+    Raises:
+        ExceptionError:                 If no values were found in the worksheet.
+        ExceptionError:                 If no values were found in the supposed header row.
+    """
     gsheet = build_gsheet(spreadsheet_id, sheet_name)
-    values = gsheet.get("values", [])
-
+    values = None
     try:
-        num_columns = max(len(row) for row in values)
+        values = gsheet.get("values", [])
+    except Exception as e:
+        print(f"ERROR: ExceptionError: No values found for sheet '{sheet_name}'. Exception: '{e}'.")
 
+    num_columns = max(len(row) for row in values)
+
+    header_data = None
+    try:
         header_data = values[
             header_row - 1
-        ]  # JB: Accounting for the fact, that python starts counting at 0.
-        # JB: Trying to prevent errors with empty header data.
-        for i in range(len(header_data)):
-            if not header_data[i]:
-                header_data[i] = ""
+        ]
+        # Accounting for the fact, that python starts counting at 0.
+        # Trying to prevent errors with empty header data.
+    except Exception as e:
+        print(f"ERROR: ExceptionError: There went something wrong getting the headers for sheet '{sheet_name}'. Exception: '{e}'.")
+    
+    for i in range(len(header_data)):
+        if not header_data[i]:
+            header_data[i] = ""
         # Also ensuring the header row is as long as the longest row in the entire sheet
         column_names = header_data
         if len(column_names) < num_columns:
             column_names.extend([""] * (num_columns - len(column_names)))
 
-        # JB: Setting up the actual cell data, assuming, it starts one row beneath the header row
+        # Setting up the actual cell data, assuming, it starts one row beneath the header row
         cell_data = values[header_row:]
-        # JB: Copied from API code?
+        # Copied from API code?
         # corrects for rows which end with blank cells
         for i, row in enumerate(cell_data):
             if len(row) < num_columns:
                 row.extend([""] * (num_columns - len(row)))
 
-        # JB: Now creating our Pandas dataframe
+        # Now creating our Pandas dataframe
         gsheetdf = pd.DataFrame(cell_data, columns=column_names)
 
         return gsheetdf
-
-    except:
-        print(f"ERROR: ExceptionError - No data found for worksheet '{sheet_name}'.")

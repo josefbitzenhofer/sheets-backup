@@ -1,33 +1,42 @@
-import pandas as pd
 import sys
 from datetime import date
 from datetime import datetime
 import os
 import yaml
-from gsheets_importer import *
+from gsheets_importer import (
+    gsheet2df,
+    list_worksheets
+)
 
 
 ##################################################################
-# JB: Getting the timestamp
-def get_timestamp():
-    # JB: get the current date
+def get_timestamp() -> str:
+    """"Return timestamp"""
+    # Get the current date
     today = date.today()
     today = today.strftime("%Y-%m-%d")
-    # JB: get the current time
+    # Get the current time
     time = datetime.now()
     time = time.strftime("%H-%M-%S")
 
-    # JB: Create timestamp
-    timestamp = today + "_" + time  # JB: 'YYYY-MM-DD_HH-MM-SS'
+    # Create timestamp
+    timestamp = today + "_" + time  # 'YYYY-MM-DD_HH-MM-SS'
     return timestamp
 
 
 ##################################################################
-# JB: Creating a folder for each day
-def create_directory(parent_directory: str):
+def create_todays_directory(parent_directory: str) -> str:
+    """
+    Return today's directory
+    Args:
+        parent_directory (str):         Parent directory path (aka umbrella folder for each day's backup folder)
+    Returns:
+        str: Today's directory path
+    """
     new_directory = (
         get_timestamp()
-    )  # JB: This sets the name of the new folder to the timestamp
+    ) 
+    # This sets the name of the new folder to the timestamp
     directory_path = os.path.join(parent_directory, new_directory)
     os.makedirs(directory_path)
     print(f"NOTE: Created new directory @ '{directory_path}'.")
@@ -35,7 +44,6 @@ def create_directory(parent_directory: str):
 
 
 #################################################################
-# JB: Creating .csv files
 def create_csv(
     spreadsheet_id: str,
     spreadsheet_title: str,
@@ -43,8 +51,22 @@ def create_csv(
     header_row: int,
     all_worksheets: bool,
     worksheets_user: list,
-):
-    directory_path = create_directory(parent_directory)
+) -> None:
+    """
+    Create folder and CSV files.
+    Arg:
+        spreadsheet_id (str):           Spreadsheet id
+        spreadsheet_title (str):        Spreadsheet title
+        parent_directory (str):         Parent directory path (aka umbrella folder for each day's backup folder)
+        header_row (int):               Row number of the row with the headers in the worksheets
+        all_worksheets (bool):          Either 'True' or 'False' -> if 'True', save all worksheets within a spreadsheet
+        worksheets_user (list):         If all_worksheets 'False', take list of worksheets within a spreadsheet to be saved
+    Returns:
+        None
+    Raises:
+        ExceptionError:                 If worksheet could not be saved aka turned into a .csv file
+    """
+    directory_path = create_todays_directory(parent_directory)
     # This checks if the user wants all worksheets within the spreadsheet to be saved. Else, it takes the worksheets the user specified.
     worksheets = []
     if all_worksheets:
@@ -65,16 +87,21 @@ def create_csv(
         file_path = os.path.join(directory_path, file_name)
         try:
             sheet_df.to_csv(file_path)
-        except:
+        except Exception as e:
             print(
-                f"ERROR: ExceptionError - Worksheet '{sheet_name}' could not be saved."
+                f"ERROR: ExceptionError - Worksheet '{sheet_name}' could not be saved. Exception: '{e}'."
             )
     print(f"NOTE: Backup of '{spreadsheet_title}' @ '{directory_path}' successful.")
 
-
-##################################################################
-# JB: Main code
-if __name__ == "__main__":
+def main():
+    """
+    Get config from 'config.yaml' file.
+    Iterate over each worksheet to be saved, turn it into .csv file.
+    Returns:
+        None
+    Raises:
+        ValueError:                     If a value within the 'config.yaml' file has not properly been set up
+    """
     with open("config.yaml", "r") as file:
         spreadsheets = yaml.safe_load_all(file)
         for spreadsheet in spreadsheets:
@@ -111,10 +138,11 @@ if __name__ == "__main__":
                     print(
                         f"NOTE: No backup for '{spreadsheet_title}'. `active` is set to `{active}`."
                     )
-            except:
-                print(
-                    f"ERROR: ExceptionError - you did not correctly set up your 'config.yaml' file for '{spreadsheet_title}'."
-                )
-    # Exit
+            except Exception as e:
+                raise ValueError(f"ERROR: ExceptionError: You did not correctly set up your 'config.yaml' file for '{spreadsheet_title}.'") from e
+
+##################################################################
+if __name__ == "__main__":
+    main()
     print("NOTE: Graceful exit.")
     sys.exit()
