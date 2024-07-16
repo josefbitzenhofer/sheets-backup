@@ -17,12 +17,12 @@ You need to set up a few things:
 See 'requirements.txt'.
 
 You can either:  
-1) Use the `bmB_venv` venv provided.  
+1) Create a venv using a source-code editor (e.g. VS Code) and let it install the dependencies from the `requirements.txt`.  
 2) Create a venv, activate it and install the modules into it.
 
 ### Server connection
-Make sure that you are **connected** to the **"MarcBusche"-server**!
-(When you are running your machine from outside the UCL network, make sure you are connected via the UCL VPN!)
+If you are storing your backup on a server, make sure that you are **connected** to the **server**!
+(E.g., if you are storing the backup on a uni/company server, but running your machine from outside the network, make sure you are connected via a VPN!)
 
 ### config.yaml
 Set up the `config.yaml` file:  
@@ -30,21 +30,21 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > The file's content looks like this:
 ```
     ---
-    spreadsheet_title: Behaviour metadata
-    active: True
-    spreadsheet_id: 1fMnVXrDeaWTkX-TT21F4mFuAlaXIe6uVteEjv8mH0Q4
-    parent_directory: /Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup
-    header_row: 1
-    all_worksheets: True
+    spreadsheet_title:  Behaviour metadata
+    active:             True
+    spreadsheet_id:     2gNoWYrEfVXZqY-UU32G5nGvBlbYJf7vWvfFkx9nI1R5
+    parent_directory:   /Volumes/UniServer/backup/data/behaviormetadataBackup
+    header_row:         1
+    all_worksheets:     True
     worksheets:
         -
     ---
-    spreadsheet_title: mouse metadata
-    active: False
-    spreadsheet_id: 1QVkoP9g2XUB8OBu4Hs4d2h3ebUQx2sAeQ4wMnlLhbv8
-    parent_directory: /Volumes/MarcBusche/Josef/backup/data/mousemetadataBackup
-    header_row: 1
-    all_worksheets: True
+    spreadsheet_title:  Mouse metadata
+    active:             False
+    spreadsheet_id:     3hOpXZsFgYZRuZ-VV43H6oHvCmdZKg8wXwgGly0oJ2S6
+    parent_directory:   /Volumes/UniServer/backup/data/behaviormetadataBackup
+    header_row:         1
+    all_worksheets:     False
     worksheets:
         - surgery_metadata
 ```
@@ -54,12 +54,12 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > The spreadsheet data has to be formatted as follows:  
 ```
     ---
-    spreadsheet_title:           # YOUR-spreadsheet_title
-    active:                      # either 'True' or 'False'
-    spreadsheet_id:              # YOUR-spreadsheet_id
-    parent_directory:            # YOUR-parent_directory
-    header_row:                  # YOUR-header_row
-    all_worksheets:              # either 'True' or 'False'
+    spreadsheet_title:  # YOUR-spreadsheet_title
+    active:             # either 'True' or 'False'
+    spreadsheet_id:     # YOUR-spreadsheet_id
+    parent_directory:   # YOUR-parent_directory
+    header_row:         # YOUR-header_row
+    all_worksheets:     # either 'True' or 'False'
     worksheets:
         - 
 ```  
@@ -97,13 +97,13 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 
 #### MacOS  
 The directory path should look something like this:  
-`/Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup`  
+`/Volumes/UniServer/backup/data/behaviormetadataBackup`  
 
 #### Linux
 The directory path should look something like this:  
-`/mnt/MarcBusche/Josef/backup/data/behaviormetadataBackup`  
+`/mnt/UniServer/backup/data/behaviormetadataBackup`  
 Or this:  
-`/media/MarcBusche/Josef/backup/data/behaviormetadataBackup`   
+`/media/UniServer/backup/data/behaviormetadataBackup`   
    
    
 > This can obviously differ, if you decide to store your data elsewhere.
@@ -127,8 +127,8 @@ Press `I` on your keyboard to enter the insert mode.
 
 ### Step 2:
 > Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.  
-> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`! This can be the `python3` in the`bmB_venv` venv, if you decided to use this one.   
-Might look something like `/bmB_venv/bin/python3`.  
+> Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`!  
+> Assumed we called the venv `bmB_venv`, it might look something like `/bmB_venv/bin/python3`.  
 > Note: Replace `PATHtoCRONLOG` with the path where you want the `cron.log` logs saved to, e.g. into the umbrella folder.
 
   
@@ -152,6 +152,6 @@ It should show the cronjob for the backup which you just set up.
 > If you want to change the time and date of the cronjob, see this [tutorial](https://medium.com/@justin_ng/how-to-run-your-script-on-a-schedule-using-crontab-on-macos-a-step-by-step-guide-a7ba539acf76) for guidance.
 
 ## Most important note at the end
-If I were you, I would firmly recommend that you **run the script the first time from a text editor** (e.g. VS Code, Atom, ...), IDE or simply via your terminal.  
+If I were you, I would firmly recommend that you **run the script the first time from a source-code editor** (e.g. VS Code, Atom, ...), IDE or simply via your terminal.  
 Just think of all the 'firsts' described above.  
 You do not want your machine to prompt all of the requests to set up the task which will secure your presumably most vital data while you are wandering around, clueless... ;)

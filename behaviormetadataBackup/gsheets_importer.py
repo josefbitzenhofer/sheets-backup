@@ -47,7 +47,6 @@ def create_service() -> Resource:
 
     return service
 
-
 def list_worksheets(spreadsheet_id: str) -> list[str]:
     """
     Return list of worksheets in the spreadsheet.
@@ -71,7 +70,6 @@ def list_worksheets(spreadsheet_id: str) -> list[str]:
         worksheets.append(sheet_name)
 
     return worksheets
-
 
 def build_gsheet(spreadsheet_id: str, sheet_name: str) -> dict:
     """

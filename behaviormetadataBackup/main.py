@@ -7,13 +7,11 @@ from gsheets_importer import gsheet2df, list_worksheets
 
 
 def get_timestamp() -> str:
-    """ "Return timestamp"""
+    """Return timestamp"""
     # Get the current date
-    today = date.today()
-    today = today.strftime("%Y-%m-%d")
+    today:str = date.today().strftime("%Y-%m-%d")
     # Get the current time
-    time = datetime.now()
-    time = time.strftime("%H-%M-%S")
+    time:str = datetime.now().strftime("%H-%M-%S")
 
     # Create timestamp
     timestamp = today + "_" + time  # 'YYYY-MM-DD_HH-MM-SS'
@@ -88,7 +86,7 @@ def create_csv(
     print(f"NOTE: Backup of '{spreadsheet_title}' @ '{directory_path}' successful.")
 
 
-def main():
+def main() -> None:
     """
     Get config from 'config.yaml' file.
     Iterate over each worksheet to be saved, turn it into .csv file.
