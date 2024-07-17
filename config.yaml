@@ -1,27 +1,18 @@
 ---
-spreadsheet_title:  Behaviour metadata
-active: True
-spreadsheet_id:     1fMnVXrDeaWTkX-TT21F4mFuAlaXIe6uVteEjv8mH0Q4
-parent_directory:   /Volumes/MarcBusche/Josef/backup/data/behaviormetadataBackup
-header_row:         1
-all_worksheets:     True
-worksheets:
-  - 
+spreadsheet_title:                                                  # Title of spreadsheet for identification
+active:                                                             # Either 'True' or 'False'
+spreadsheet_id:                                                     # https://docs.google.com/spreadsheets/d/SPREADSHEET_ID
+parent_directory:                                                   # Umbrella folder for the worsheet .csv files
+header_row:                                                         # Row number of row which contains the headers
+all_worksheets:                                                     # Either 'True' or 'False'
+worksheets:                                                         # If 'all_worksheets' = 'False', specify a list of worksheets to be saved
+  -
 ---
-spreadsheet_title:  mouse metadata
-active: True
-spreadsheet_id:     1QVkoP9g2XUB8OBu4Hs4d2h3ebUQx2sAeQ4wMnlLhbv8
-parent_directory:   /Volumes/MarcBusche/Josef/backup/data/mousemetadataBackup
-header_row:         1
-all_worksheets:     True
-worksheets:
-  - 
----
-spreadsheet_title:  water restriction top up calculation
-active: True
-spreadsheet_id:     1ZxtRQJXk1oZfgLcNllWO_dV0LJeVuBfgEKeMRdY6qLQ
-parent_directory:   /Volumes/MarcBusche/Josef/backup/data/water_restriction
-header_row:         1
-all_worksheets:     True
-worksheets:
+spreadsheet_title:                                                  # Title of spreadsheet for identification
+active:                                                             # Either 'True' or 'False'
+spreadsheet_id:                                                     # https://docs.google.com/spreadsheets/d/SPREADSHEET_ID
+parent_directory:                                                   # Umbrella folder for the worsheet .csv files
+header_row:                                                         # Row number of row which contains the headers
+all_worksheets:                                                     # Either 'True' or 'False'
+worksheets:                                                         # If 'all_worksheets' = 'False', specify a list of worksheets to be saved
   -
