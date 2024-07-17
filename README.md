@@ -1,4 +1,4 @@
-# behaviourmetadataBackup
+# sheets-backup
 
 ## Pre-requisites
 You need to set up a few things:
@@ -30,23 +30,23 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > The file's content looks like this:
 ```
     ---
-    spreadsheet_title:  Behaviour metadata
+    spreadsheet_title:  Metadata
     active:             True
     spreadsheet_id:     2gNoWYrEfVXZqY-UU32G5nGvBlbYJf7vWvfFkx9nI1R5
-    parent_directory:   /Volumes/UniServer/backup/data/behaviormetadataBackup
+    parent_directory:   /Volumes/UniServer/backup/data/Metadata
     header_row:         1
     all_worksheets:     True
     worksheets:
         -
     ---
-    spreadsheet_title:  Mouse metadata
+    spreadsheet_title:  Analysis
     active:             False
     spreadsheet_id:     3hOpXZsFgYZRuZ-VV43H6oHvCmdZKg8wXwgGly0oJ2S6
-    parent_directory:   /Volumes/UniServer/backup/data/behaviormetadataBackup
+    parent_directory:   /Volumes/UniServer/backup/data/Analysis
     header_row:         1
     all_worksheets:     False
     worksheets:
-        - surgery_metadata
+        - raw data
 ```
    
 > If need be, change the settings.
@@ -66,7 +66,7 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > **Important note**: You need the dashes (`---`) to start a new section for another spreadsheet!  
 
 > Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
-> Also, do not use quotes (`" "`) nor single quotes (`' '`) here.   
+> Also, do not add quotes (`" "`) nor single quotes (`' '`) here.   
 > Do not replace any blank spaces (`  `)!    
 
 > `'spreadsheet_title` refers to the title of the spreadsheet.  
@@ -97,13 +97,13 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 
 #### MacOS  
 The directory path should look something like this:  
-`/Volumes/UniServer/backup/data/behaviormetadataBackup`  
+`/Volumes/UniServer/backup/data/Metadata`  
 
 #### Linux
 The directory path should look something like this:  
-`/mnt/UniServer/backup/data/behaviormetadataBackup`  
+`/mnt/UniServer/backup/data/Metadata`  
 Or this:  
-`/media/UniServer/backup/data/behaviormetadataBackup`   
+`/media/UniServer/backup/data/Metadata`   
    
    
 > This can obviously differ, if you decide to store your data elsewhere.
@@ -115,7 +115,7 @@ See this [tutorial](https://developers.google.com/sheets/api/quickstart/python) 
 Important points about this one (sorry - here it gets ugly):  
 - Follow the instructions in the tutorial linked above.
 - It is **crucial** that you move the `credential.json` file to your working directory.
-(I.e., into the umbrella folder: `PATHNAME/behaviormetadataBackup/credentials.json`)  
+(I.e., into the umbrella folder: `PATHNAME/sheets-backup/credentials.json`)  
 - Note that, when you run the script for the first time, you will be asked to sign in to your Google account.
 Afterwards, your token will be saved and you will only be asked to repeat the sign in process if your token expires.
 
@@ -128,12 +128,12 @@ Press `I` on your keyboard to enter the insert mode.
 ### Step 2:
 > Note: Replace `'PATHNAME'` with the path where you saved the umbrella folder.  
 > Note: Replace `'PATHtoPYTHON'` with the path to the **venv** `python3`!  
-> Assumed we called the venv `bmB_venv`, it might look something like `/bmB_venv/bin/python3`.  
+> Assumed we called the venv `sb_venv`, it might look something like `/sb_venv/bin/python3`.  
 > Note: Replace `PATHtoCRONLOG` with the path where you want the `cron.log` logs saved to, e.g. into the umbrella folder.
 
   
 Please enter or copy and paste:  
-`00 11 * * * cd PATHNAME && PATHtoPYTHON behaviormetadataBackup/main.py >> PATHtoCRONLOG 2>&1`
+`00 11 * * * cd PATHNAME && PATHtoPYTHON sheets-backup/main.py >> PATHtoCRONLOG 2>&1`
 
 ### Step 3:
 Then press `esc` on your keyboard.  
