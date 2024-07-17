@@ -44,7 +44,7 @@ def create_csv(
 ) -> None:
     """
     Create folder and CSV files.
-    Arg:
+    Args:
         spreadsheet_id (str):           Spreadsheet id
         spreadsheet_title (str):        Spreadsheet title
         parent_directory (str):         Parent directory path (aka umbrella folder for each day's backup folder)
