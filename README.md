@@ -1,4 +1,4 @@
-# Viral: metadata Backup
+# behaviourmetadataBackup
 
 ## Pre-requisites
 You need to set up a few things:
@@ -17,11 +17,11 @@ You need to set up a few things:
 See 'requirements.txt'.
 
 You can either:  
-1) Create a venv using a source-code editor (e.g. VS Code) and let it install the dependencies from the `requirements.txt`.  
+1) Create a venv using an IDE (e.g. VS Code) and let it install the dependencies from the `requirements.txt`.  
 2) Create a venv, activate it and install the modules into it.
 
 ### Server connection
-If you are storing your backup on a server, make sure that you are **connected** to the **server**!
+If you are storing your backup on a server, make sure that you are **connected** to the **server**!  
 (E.g., if you are storing the backup on a uni/company server, but running your machine from outside the network, make sure you are connected via a VPN!)
 
 ### config.yaml
@@ -65,22 +65,27 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 ```  
 > **Important note**: You need the dashes (`---`) to start a new section for another spreadsheet!  
 
+> Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
+> Also, do not use quotes (`" "`) nor single quotes (`' '`) here.   
+> Do not replace any blank spaces (`  `)!    
+
 > `'spreadsheet_title` refers to the title of the spreadsheet.  
 > This will be used to help you keep track of your spreadsheets.  
 
-> `active` refers to the status of the spreadsheet.  
-> `True` means that a backup will be created.  
-> `False` means that no backup will be created.   
+> `active` refers to the status of the spreadsheet:  
+> `True` means that a backup will be created for this spreadsheet.  
+> `False` means that no backup will be created for this spreadsheet.   
    
 >`'spreadsheet_id` refers to the ID of the spreadsheet. This has to be **accurate**!  
 > You will find your spreadsheet's ID here: `https://docs.google.com/spreadsheets/d/SPREADSHEET_ID`  
 > Additionally, you have to have access to said Google spreadsheet (either shared or owned).   
    
 > `'parent_directory'` refers to the directory path of the server folder where you want to save the backups.  
-> See the section below on how to adjust the directory path depending on the machine you are using. 
+> See the section below on how to adjust the directory path depending on the machine you are using, if you are storing your backups on a server. 
     
 > `'header_row'` is the number of the row which contains the headers of the columns.   
-> This must be an **integer**, e.g. `1`. This information tells our code to look for the headers in the said row of the sheet.   
+> This must be an **integer**, e.g. `1`.   
+> This information tells the code to look for the headers in said row of the worksheets.   
 
 > Through `all_worksheets`, you can set whether you want all worksheets within your spreadsheet to be saved.   
 > Set this to `True` if all worksheets shall be saved.  
@@ -89,11 +94,6 @@ Open the `config.yaml` file within the umbrella folder in your text editor.
 > Said list is `worksheets`. Every worksheet to be saved needs to be set here.  
 > You can leave the `worksheets` list empty, if you set `all_worksheets` to `True`.   
 > Begin every entry with a dash (`-`).   
-> Do not use quotes (`""`) or single quotes (`''`) here!  
-> Do not replace any blank spaces (`  `)!   
-
-> Note: Make sure each entry consists of **only one line**! Otherwise Python will prompt an error.  
-> Also, do not use quotes (" ") or single quotes (' ') here.
 
 #### MacOS  
 The directory path should look something like this:  
@@ -110,7 +110,7 @@ Or this:
 
 ### Google API connection
 See this [tutorial](https://developers.google.com/sheets/api/quickstart/python) for how to establish the connection.  
-> Note: Use the **same** Google account which has access to the spreadsheet!  
+> Note: Use the **same** Google account which has access to the spreadsheets!  
 
 Important points about this one (sorry - here it gets ugly):  
 - Follow the instructions in the tutorial linked above.
@@ -152,6 +152,6 @@ It should show the cronjob for the backup which you just set up.
 > If you want to change the time and date of the cronjob, see this [tutorial](https://medium.com/@justin_ng/how-to-run-your-script-on-a-schedule-using-crontab-on-macos-a-step-by-step-guide-a7ba539acf76) for guidance.
 
 ## Most important note at the end
-If I were you, I would firmly recommend that you **run the script the first time from a source-code editor** (e.g. VS Code, Atom, ...), IDE or simply via your terminal.  
+It is strongly recommended to **run the script the first time using an IDE** (e.g. VS Code, Atom, ...) or simply via the terminal.  
 Just think of all the 'firsts' described above.  
 You do not want your machine to prompt all of the requests to set up the task which will secure your presumably most vital data while you are wandering around, clueless... ;)
