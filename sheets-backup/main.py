@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 from datetime import date
 from datetime import datetime
@@ -9,9 +11,9 @@ from gsheets_importer import gsheet2df, list_worksheets
 def get_timestamp() -> str:
     """Return timestamp"""
     # Get the current date
-    today:str = date.today().strftime("%Y-%m-%d")
+    today: str = date.today().strftime("%Y-%m-%d")
     # Get the current time
-    time:str = datetime.now().strftime("%H-%M-%S")
+    time: str = datetime.now().strftime("%H-%M-%S")
 
     # Create timestamp
     timestamp = today + "_" + time  # 'YYYY-MM-DD_HH-MM-SS'

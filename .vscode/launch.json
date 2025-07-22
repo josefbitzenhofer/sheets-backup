@@ -8,9 +8,8 @@
             "name": "run backup",
             "type": "debugpy",
             "request": "launch",
-            "program": "behaviormetadataBackup/main.py",
+            "program": "sheets-backup/main.py",
             "console": "integratedTerminal"
         },
-    
     ]
 }
